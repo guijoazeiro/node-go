@@ -12,18 +12,16 @@ export class UserService {
   }
   async getUserById(id: string) {
     const user = await this.userRepository.getUserById(id);
-    console.log(user);
     return user;
   }
 
   async createUser(name: string, email: string, password: string) {
     const encryptedPassword = await bcrypt.hash(password, 10);
-    console.log(encryptedPassword);
     try {
       const user = await this.userRepository.createUser({
         name,
         email,
-        password,
+        password: encryptedPassword,
       });
       return user;
     } catch (error) {
