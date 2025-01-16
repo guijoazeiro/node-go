@@ -14,6 +14,7 @@
 	"devDependencies": {
 		"@eslint/create-config": "1.4.0",
 		"@eslint/js": "^9.18.0",
+		"@types/dotenv-safe": "^8.1.6",
 		"@types/express": "^5.0.0",
 		"@types/node": "^22.10.5",
 		"@types/pg": "^8.11.10",
@@ -28,6 +29,7 @@
 		"typescript-eslint": "^8.19.1"
 	},
 	"dependencies": {
+		"dotenv-safe": "^9.1.0",
 		"express": "^4.21.2",
 		"helmet": "^8.0.0",
 		"pg": "^8.13.1"

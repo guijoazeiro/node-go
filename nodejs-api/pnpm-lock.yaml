@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      dotenv-safe:
+        specifier: ^9.1.0
+        version: 9.1.0(dotenv@16.4.7)
       express:
         specifier: ^4.21.2
         version: 4.21.2
@@ -24,6 +27,9 @@ importers:
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
+      '@types/dotenv-safe':
+        specifier: ^8.1.6
+        version: 8.1.6
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
@@ -555,6 +561,9 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
+  '@types/dotenv-safe@8.1.6':
+    resolution: {integrity: sha512-ftZXu3WGT6ALq+f98IX2gWriGMPds+0ku5h8kZewNpY47ua+Z+XNcin9apZ2kVd4B9LV1vMfUOyDf1/hhreR0Q==}
+
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
@@ -799,6 +808,19 @@ packages:
   destroy@1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
+
+  dotenv-safe@9.1.0:
+    resolution: {integrity: sha512-2qwVAnUN+EDpu41pIK1XiJpHXKHV9Dnti3cE1EnUXT1/BV5+B7xuSZtgZ/4LExkCpp5F6BGikraezQL+8hKCOA==}
+    peerDependencies:
+      dotenv: '>= 8.2.0'
+
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
+  dotenv@8.6.0:
+    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
+    engines: {node: '>=10'}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -1948,6 +1970,11 @@ snapshots:
     dependencies:
       '@types/node': 22.10.5
 
+  '@types/dotenv-safe@8.1.6':
+    dependencies:
+      '@types/node': 22.10.5
+      dotenv: 8.6.0
+
   '@types/estree@1.0.6': {}
 
   '@types/express-serve-static-core@5.0.4':
@@ -2211,6 +2238,14 @@ snapshots:
   depd@2.0.0: {}
 
   destroy@1.2.0: {}
+
+  dotenv-safe@9.1.0(dotenv@16.4.7):
+    dependencies:
+      dotenv: 16.4.7
+
+  dotenv@16.4.7: {}
+
+  dotenv@8.6.0: {}
 
   dunder-proto@1.0.1:
     dependencies:
