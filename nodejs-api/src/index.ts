@@ -4,12 +4,14 @@ import router from './routes';
 import { initializeDatabase } from './db';
 import { env } from './config/env';
 import logger from './config/logger';
+import morgan from 'morgan';
 
 const PORT: number = env.app.port;
 const app = express();
 
 app.use(express.json());
 app.use(helmet());
+app.use(morgan('dev'));
 const startServer = async () => {
   try {
     await initializeDatabase();
