@@ -1,3 +1,4 @@
+import logger from '../../../config/logger';
 import { UserRepository } from '../repository/UserRepository';
 import bcrypt from 'bcryptjs';
 
@@ -25,7 +26,7 @@ export class UserService {
       });
       return user;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 

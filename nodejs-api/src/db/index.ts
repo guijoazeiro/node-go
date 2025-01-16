@@ -1,5 +1,6 @@
 import { Pool, PoolClient, QueryResult, QueryResultRow } from 'pg';
 import { env } from '../config/env';
+import logger from '../config/logger';
 
 const pool = new Pool({
   user: env.db.user,
@@ -13,10 +14,10 @@ export const initializeDatabase: () => Promise<void> =
   async (): Promise<void> => {
     try {
       const client: PoolClient = await pool.connect();
-      console.log('Conexão com o banco de dados estabelecida com sucesso!');
+      logger.info('Conexão com o banco de dados estabelecida com sucesso!');
       client.release();
     } catch (err) {
-      console.error('Erro ao conectar com o banco de dados:', err);
+      logger.error('Erro ao conectar com o banco de dados:', err);
       process.exit(1);
     }
   };
@@ -33,7 +34,7 @@ export const query: <T extends QueryResultRow>(
     const result: QueryResult<T> = await client.query(query, params);
     return result.rows;
   } catch (error) {
-    console.error('Erro ao executar a query', error);
+    logger.error('Erro ao executar a query', error);
   } finally {
     client.release();
   }

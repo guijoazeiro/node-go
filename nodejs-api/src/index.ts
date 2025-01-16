@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import router from './routes';
 import { initializeDatabase } from './db';
 import { env } from './config/env';
+import logger from './config/logger';
 
 const PORT: number = env.app.port;
 const app = express();
@@ -16,10 +17,10 @@ const startServer = async () => {
     app.use('/api', router);
 
     app.listen(PORT, () => {
-      console.log(`Servidor rodando na porta ${PORT}`);
+      logger.info(`Servidor rodando na porta ${PORT}`);
     });
   } catch (error) {
-    console.error('Erro ao iniciar o servidor:', error);
+    logger.error('Erro ao iniciar o servidor:', error);
   }
 };
 
