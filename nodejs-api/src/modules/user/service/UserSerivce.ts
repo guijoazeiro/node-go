@@ -16,12 +16,26 @@ export class UserService {
     return user;
   }
 
-  async createUser(name: string, email: string, password: string) {
+  async createUser({
+    name,
+    email,
+    phone,
+    address,
+    password,
+  }: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    password: string;
+  }) {
     const encryptedPassword = await bcrypt.hash(password, 10);
     try {
       const user = await this.userRepository.createUser({
         name,
         email,
+        phone,
+        address,
         password: encryptedPassword,
       });
       return user;
