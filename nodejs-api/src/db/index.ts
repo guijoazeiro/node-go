@@ -39,3 +39,64 @@ export const query: <T extends QueryResultRow>(
     client.release();
   }
 };
+
+export const generateUpdateQuery = async <
+  T extends Record<string, string | number | boolean | null | undefined>,
+  U extends Record<string, string | number | boolean | null | undefined>,
+>(
+  tableName: string,
+  data: T,
+  conditions?: U,
+): Promise<string> => {
+  if (!tableName || typeof tableName !== 'string') {
+    throw new Error('O nome da tabela é obrigatório e deve ser uma string.');
+  }
+
+  if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
+    throw new Error(
+      'Os dados para atualização devem ser um objeto com pelo menos um campo.',
+    );
+  }
+
+  const filterObject = <
+    V extends Record<string, string | number | boolean | null | undefined>,
+  >(
+    obj: V,
+  ): Record<string, string | number | boolean> => {
+    return Object.fromEntries(
+      Object.entries(obj).filter(
+        ([_, value]) => value !== undefined && value !== null,
+      ),
+    ) as Record<string, string | number | boolean>;
+  };
+
+  const filteredData = filterObject(data);
+  const filteredConditions = conditions ? filterObject(conditions) : {};
+
+  if (Object.keys(filteredData).length === 0) {
+    throw new Error(
+      'O objeto de dados não pode estar vazio após remover valores inválidos.',
+    );
+  }
+
+  const setClause = Object.entries(filteredData)
+    .map(
+      ([key, value]) =>
+        `${key} = ${typeof value === 'string' ? `'${value}'` : value}`,
+    )
+    .join(', ');
+
+  let whereClause = '';
+  if (Object.keys(filteredConditions).length > 0) {
+    whereClause =
+      'WHERE ' +
+      Object.entries(filteredConditions)
+        .map(
+          ([key, value]) =>
+            `${key} = ${typeof value === 'string' ? `'${value}'` : value}`,
+        )
+        .join(' AND ');
+  }
+
+  return `UPDATE ${tableName} SET ${setClause} ${whereClause};`;
+};

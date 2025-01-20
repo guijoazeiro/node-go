@@ -1,4 +1,8 @@
-import { query } from '../../../db';
+import { query, generateUpdateQuery } from '../../../db';
+
+type UserUpdateData = {
+  [key: string]: string | number | boolean | null | undefined;
+};
 
 export class UserRepository {
   constructor() {}
@@ -28,6 +32,11 @@ export class UserRepository {
   }) {
     const sql = `INSERT INTO users (name, email, phone, address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email`;
     return await query(sql, [name, email, phone, address, password]);
+  }
+
+  async updateUser<T extends UserUpdateData>(id: string, user: T) {
+    const updateQuery = await generateUpdateQuery('users', user, { id });
+    return await query(updateQuery);
   }
 
   async deleteUser(id: string) {

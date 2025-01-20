@@ -29,6 +29,19 @@ export class UserController {
     res.json(user);
   }
 
+  async updateUser(req: Request, res: Response) {
+    const { id } = req.params;
+    const { name, email, phone, address, password } = req.body;
+    const user = await this.userService.updateUser(id, {
+      name,
+      email,
+      phone,
+      address,
+      password,
+    });
+    res.json(user);
+  }
+
   async deleteUser(req: Request, res: Response) {
     const { id } = req.params;
     const user = await this.userService.deleteUser(id);
