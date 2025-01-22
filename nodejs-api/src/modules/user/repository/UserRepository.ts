@@ -9,12 +9,12 @@ export class UserRepository {
 
   async listAllUsers() {
     const sql = `SELECT id, name, email, phone, address FROM users`;
-    return await query(sql);
+    return query(sql);
   }
 
   async getUserById(id: string) {
     const sql = `SELECT id, name, email, phone, address FROM users WHERE id = $1`;
-    return await query(sql, [id]);
+    return query(sql, [id]);
   }
 
   async createUser({
@@ -31,16 +31,16 @@ export class UserRepository {
     password: string;
   }) {
     const sql = `INSERT INTO users (name, email, phone, address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email`;
-    return await query(sql, [name, email, phone, address, password]);
+    return query(sql, [name, email, phone, address, password]);
   }
 
   async updateUser<T extends UserUpdateData>(id: string, user: T) {
     const updateQuery = await generateUpdateQuery('users', user, { id });
-    return await query(updateQuery);
+    return query(updateQuery);
   }
 
   async deleteUser(id: string) {
     const sql = `DELETE FROM users WHERE id = $1 RETURNING id, name, email`;
-    return await query(sql, [id]);
+    return query(sql, [id]);
   }
 }

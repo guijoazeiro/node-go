@@ -14,11 +14,11 @@ export class OrderService {
   }
 
   async listAllOrders() {
-    return await this.orderRepository.listAllOrders();
+    return this.orderRepository.listAllOrders();
   }
 
   async getOrderById(id: string) {
-    return await this.orderRepository.getOrderById(id);
+    return this.orderRepository.getOrderById(id);
   }
 
   async createOrder(userId: string, products) {

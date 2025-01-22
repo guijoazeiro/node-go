@@ -14,11 +14,11 @@ export class ProductService {
   }
 
   async listAllProducts() {
-    return await this.productRepository.listAllProducts();
+    return this.productRepository.listAllProducts();
   }
 
   async getProductById(id: string) {
-    return await this.productRepository.getProductById(id);
+    return this.productRepository.getProductById(id);
   }
 
   async createProduct({
@@ -32,7 +32,7 @@ export class ProductService {
     price: number;
     stock: number;
   }) {
-    return await this.productRepository.createProduct({
+    return this.productRepository.createProduct({
       name,
       description,
       price,
@@ -41,10 +41,10 @@ export class ProductService {
   }
 
   async updateProduct(id: string, product: UserUpdateData) {
-    return await this.productRepository.updateProduct(id, product);
+    return this.productRepository.updateProduct(id, product);
   }
 
   async deleteProduct(id: string) {
-    return await this.productRepository.deleteProduct(id);
+    return this.productRepository.deleteProduct(id);
   }
 }
