@@ -6,9 +6,14 @@ export class OrderItemRepository {
     return query(sql, [orderId]);
   }
 
-  async createOrderItem(orderId: string, productId: string, quantity: number) {
-    const sql = `INSERT INTO order_items (order_id, product_id, quantity) VALUES ($1, $2, $3) RETURNING id, order_id, product_id, quantity`;
-    return query(sql, [orderId, productId, quantity]);
+  async createOrderItem(
+    orderId: string,
+    productId: string,
+    quantity: number,
+    unitPrice: number,
+  ) {
+    const sql = `INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4) RETURNING id, order_id, product_id, quantity, unit_price, subtotal`;
+    return query(sql, [orderId, productId, quantity, unitPrice]);
   }
 
   async listAllOrderItems() {

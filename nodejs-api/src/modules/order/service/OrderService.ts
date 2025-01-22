@@ -39,7 +39,7 @@ export class OrderService {
       orderItems.push({
         product_id: productId,
         quantity,
-        unitPrice: subtotal,
+        unitPrice: fullProduct.price,
         subtotal,
       });
 
@@ -55,6 +55,7 @@ export class OrderService {
         order.id,
         orderItem.product_id,
         orderItem.quantity,
+        orderItem.unitPrice,
       );
     }
     return { order, items: orderItems };
