@@ -39,4 +39,13 @@ export class ProductRepository {
     const sql = `DELETE FROM products WHERE id = $1 RETURNING id, name, description, price, stock`;
     return await query(sql, [id]);
   }
+
+  async updateStock(productId: string, quantity: number) {
+    const updateQuery = await generateUpdateQuery(
+      'products',
+      { stock: quantity },
+      { id: productId },
+    );
+    return await query(updateQuery);
+  }
 }
