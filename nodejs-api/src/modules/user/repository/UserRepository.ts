@@ -14,7 +14,8 @@ export class UserRepository {
 
   async getUserById(id: string) {
     const sql = `SELECT id, name, email, phone, address FROM users WHERE id = $1`;
-    return query(sql, [id]);
+    const result = (await query(sql, [id])) || [];
+    return result[0] || null;
   }
 
   async createUser({
@@ -31,7 +32,9 @@ export class UserRepository {
     password: string;
   }) {
     const sql = `INSERT INTO users (name, email, phone, address, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email`;
-    return query(sql, [name, email, phone, address, password]);
+    const result =
+      (await query(sql, [name, email, phone, address, password])) || [];
+    return result[0] || null;
   }
 
   async updateUser<T extends UserUpdateData>(id: string, user: T) {

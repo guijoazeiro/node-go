@@ -12,7 +12,8 @@ export class ProductRepository {
 
   async getProductById(id: string) {
     const sql = `SELECT * FROM products WHERE id = $1`;
-    return query(sql, [id]);
+    const result = (await query(sql, [id])) || [];
+    return result[0] || null;
   }
 
   async createProduct({
@@ -27,7 +28,8 @@ export class ProductRepository {
     stock: number;
   }) {
     const sql = `INSERT INTO products (name, description, price, stock) VALUES ($1, $2, $3, $4) RETURNING id, name, description, price, stock`;
-    return query(sql, [name, description, price, stock]);
+    const result = (await query(sql, [name, description, price, stock])) || [];
+    return result[0] || null;
   }
 
   async updateProduct(id: string, product: ProductUpdateData) {

@@ -8,11 +8,13 @@ export class OrderRepository {
 
   async getOrderById(id: string) {
     const sql = `SELECT * FROM orders WHERE id = $1`;
-    return query(sql, [id]);
+    const result = (await query(sql, [id])) || [];
+    return result[0] || null;
   }
 
   async createOrder(userId: string, total: number) {
     const sql = `INSERT INTO orders (user_id, total) VALUES ($1, $2) RETURNING id, user_id, created_at, total`;
-    return query(sql, [userId, total]);
+    const result = (await query(sql, [userId, total])) || [];
+    return result[0] || null;
   }
 }
