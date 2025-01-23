@@ -5,6 +5,7 @@ import { initializeDatabase } from './db';
 import { env } from './config/env';
 import logger from './config/logger';
 import morgan from 'morgan';
+import { rabbitmq } from './config/rabbitmq';
 
 const PORT: number = env.app.port;
 const app = express();
@@ -15,6 +16,7 @@ app.use(morgan('dev'));
 const startServer = async () => {
   try {
     await initializeDatabase();
+    await rabbitmq.connect();
 
     app.use('/api', router);
 

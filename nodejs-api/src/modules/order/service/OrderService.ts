@@ -2,6 +2,7 @@ import logger from '../../../config/logger';
 import { OrderItemRepository } from '../repository/OrderItemRepository';
 import { OrderRepository } from '../repository/OrderRepository';
 import { ProductRepository } from '../../product/repository/ProductRepository';
+import { rabbitmq } from '../../../config/rabbitmq';
 
 export class OrderService {
   constructor(
@@ -58,6 +59,8 @@ export class OrderService {
         orderItem.unitPrice,
       );
     }
+
+    await rabbitmq.sendToQueue('order', order);
     return { order, items: orderItems };
   }
 }

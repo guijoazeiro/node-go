@@ -13,4 +13,7 @@ export const env = {
   app: {
     port: Number(process.env.APP_PORT),
   },
+  rabbitmq: {
+    url: process.env.RABBITMQ_URL,
+  },
 };

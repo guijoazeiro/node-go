@@ -20,8 +20,8 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     ports:
-      - "5672:5672" # Porta de comunicação do RabbitMQ
-      - "15672:15672" # Porta do painel de gerenciamento do RabbitMQ
+      - "5672:5672" 
+      - "15672:15672" 
 
 volumes:
   postgres_data:
