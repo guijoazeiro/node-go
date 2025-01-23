@@ -3,15 +3,19 @@ import { OrderItemRepository } from '../repository/OrderItemRepository';
 import { OrderRepository } from '../repository/OrderRepository';
 import { ProductRepository } from '../../product/repository/ProductRepository';
 import { rabbitmq } from '../../../config/rabbitmq';
+import { UserRepository } from '../../user/repository/UserRepository';
 
 export class OrderService {
   constructor(
     private orderRepository = new OrderRepository(),
     private orderItemRepository = new OrderItemRepository(),
     private productRepository = new ProductRepository(),
+    private userRepository = new UserRepository(),
   ) {
     this.orderRepository = orderRepository;
     this.orderItemRepository = orderItemRepository;
+    this.productRepository = productRepository;
+    this.userRepository = userRepository;
   }
 
   async listAllOrders() {
@@ -51,6 +55,8 @@ export class OrderService {
 
     const order = await this.orderRepository.createOrder(userId, total);
 
+    const userInfo = await this.userRepository.getUserById(userId);
+
     for (const orderItem of orderItems) {
       await this.orderItemRepository.createOrderItem(
         order.id,
@@ -60,7 +66,9 @@ export class OrderService {
       );
     }
 
-    await rabbitmq.sendToQueue('order', order);
-    return { order, items: orderItems };
+    const orderMessage = { order, user: userInfo, items: orderItems };
+
+    await rabbitmq.sendToQueue('order', orderMessage);
+    return orderMessage;
   }
 }

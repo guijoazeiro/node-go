@@ -12,7 +12,7 @@ export class OrderRepository {
   }
 
   async createOrder(userId: string, total: number) {
-    const sql = `INSERT INTO orders (user_id, total) VALUES ($1, $2) RETURNING id, user_id, total`;
+    const sql = `INSERT INTO orders (user_id, total) VALUES ($1, $2) RETURNING id, user_id, created_at, total`;
     return query(sql, [userId, total]);
   }
 }
