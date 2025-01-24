@@ -35,20 +35,19 @@ export class OrderService {
       const { productId, quantity } = product;
       const productInfo =
         await this.productRepository.getProductById(productId);
+      logger.info(productInfo);
 
-      const fullProduct = productInfo[0];
-
-      const subtotal = fullProduct.price * quantity;
+      const subtotal = productInfo.price * quantity;
       total += subtotal;
 
       orderItems.push({
         product_id: productId,
         quantity,
-        unitPrice: fullProduct.price,
+        unitPrice: productInfo.price,
         subtotal,
       });
 
-      const stockUpdated = fullProduct.stock - quantity;
+      const stockUpdated = productInfo.stock - quantity;
 
       await this.productRepository.updateStock(productId, stockUpdated);
     }
