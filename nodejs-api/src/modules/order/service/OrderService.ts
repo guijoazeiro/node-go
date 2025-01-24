@@ -35,7 +35,6 @@ export class OrderService {
       const { productId, quantity } = product;
       const productInfo =
         await this.productRepository.getProductById(productId);
-      logger.info(productInfo);
 
       const subtotal = productInfo.price * quantity;
       total += subtotal;
@@ -43,7 +42,7 @@ export class OrderService {
       orderItems.push({
         product_id: productId,
         quantity,
-        unitPrice: productInfo.price,
+        unitPrice: Number(productInfo.price),
         subtotal,
       });
 
