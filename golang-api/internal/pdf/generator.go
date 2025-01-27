@@ -75,7 +75,9 @@ func GenerateBoletoPDF(data *models.BoletoMessage) error {
 	pdf.Cell(0, 10, "34191.79001 01043.510047 91020.150008 7 12340000045000") // Simulado
 	pdf.Ln(12)
 
-	err := pdf.OutputFileAndClose("boleto.pdf")
+	output := fmt.Sprintf("boleto-%d.pdf", data.Order.ID)
+
+	err := pdf.OutputFileAndClose(output)
 	if err != nil {
 		log.Printf("Erro ao gerar o PDF: %v", err)
 		return err
