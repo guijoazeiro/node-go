@@ -28,7 +28,7 @@ func ConsumeMessages(ch *amqp.Channel) {
 			continue
 		}
 
-		if err := pdf.GeneratePDF(boletoMessage); err != nil {
+		if err := pdf.GenerateBoletoPDF(&boletoMessage); err != nil {
 			log.Printf("Erro ao gerar o PDF: %v", err)
 		}
 	}
