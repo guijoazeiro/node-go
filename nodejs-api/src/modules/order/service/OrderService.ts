@@ -38,7 +38,7 @@ export class OrderService {
         await this.productRepository.getProductById(productId);
 
       if (!productInfo) {
-        throw new HttpError(`Produto ${productId} não encontrado`, 401);
+        throw new HttpError(`Produto ${productId} não encontrado`, 404);
       }
 
       const subtotal = productInfo.price * quantity;
@@ -58,7 +58,7 @@ export class OrderService {
     const userInfo = await this.userRepository.getUserById(userId);
 
     if (!userInfo) {
-      throw new HttpError(`Usuario ${userId} não encontrado`, 401);
+      throw new HttpError(`Usuario ${userId} não encontrado`, 404);
     }
 
     const order = await this.orderRepository.createOrder(userId, total);
