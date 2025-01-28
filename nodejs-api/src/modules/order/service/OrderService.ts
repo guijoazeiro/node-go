@@ -5,6 +5,7 @@ import { ProductRepository } from '../../product/repository/ProductRepository';
 import { rabbitmq } from '../../../config/rabbitmq';
 import { UserRepository } from '../../user/repository/UserRepository';
 import HttpError from '../../../utils/errorHandler';
+import { statusCode } from '../../../utils/constants';
 
 export class OrderService {
   constructor(
@@ -38,7 +39,10 @@ export class OrderService {
         await this.productRepository.getProductById(productId);
 
       if (!productInfo) {
-        throw new HttpError(`Produto ${productId} não encontrado`, 404);
+        throw new HttpError(
+          `Produto ${productId} não encontrado`,
+          statusCode.NOT_FOUND,
+        );
       }
 
       const subtotal = productInfo.price * quantity;
@@ -58,7 +62,10 @@ export class OrderService {
     const userInfo = await this.userRepository.getUserById(userId);
 
     if (!userInfo) {
-      throw new HttpError(`Usuario ${userId} não encontrado`, 404);
+      throw new HttpError(
+        `Usuario ${userId} não encontrado`,
+        statusCode.NOT_FOUND,
+      );
     }
 
     const order = await this.orderRepository.createOrder(userId, total);

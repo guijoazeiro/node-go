@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { UserService } from '../service/UserSerivce';
+import { statusCode } from '../../../utils/constants';
 
 export class UserController {
   constructor(private userService = new UserService()) {
@@ -8,13 +9,13 @@ export class UserController {
 
   async listAllUsers(req: Request, res: Response) {
     const users = await this.userService.listAllUsers();
-    res.json(users);
+    res.status(statusCode.OK).json(users);
   }
 
   async getUserById(req: Request, res: Response) {
     const { id } = req.params;
     const user = await this.userService.getUserById(id);
-    res.json(user);
+    res.status(statusCode.OK).json(user);
   }
 
   async createUser(req: Request, res: Response) {
@@ -26,7 +27,7 @@ export class UserController {
       address,
       password,
     });
-    res.json(user);
+    res.status(statusCode.CREATED).json(user);
   }
 
   async updateUser(req: Request, res: Response) {
@@ -39,12 +40,12 @@ export class UserController {
       address,
       password,
     });
-    res.json(user);
+    res.status(statusCode.OK).json(user);
   }
 
   async deleteUser(req: Request, res: Response) {
     const { id } = req.params;
     const user = await this.userService.deleteUser(id);
-    res.json(user);
+    res.status(statusCode.OK).json(user);
   }
 }

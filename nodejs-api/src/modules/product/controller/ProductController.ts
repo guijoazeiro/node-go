@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ProductService } from '../service/ProductService';
+import { statusCode } from '../../../utils/constants';
 
 export class ProductController {
   constructor(private productService = new ProductService()) {
@@ -8,13 +9,13 @@ export class ProductController {
 
   async listAllProducts(req: Request, res: Response) {
     const products = await this.productService.listAllProducts();
-    res.json(products);
+    res.status(statusCode.OK).json(products);
   }
 
   async getProductById(req: Request, res: Response) {
     const { id } = req.params;
     const product = await this.productService.getProductById(id);
-    res.json(product);
+    res.status(statusCode.OK).json(product);
   }
 
   async createProduct(req: Request, res: Response) {
@@ -25,7 +26,7 @@ export class ProductController {
       price,
       stock,
     });
-    res.json({ product });
+    res.status(statusCode.CREATED).json({ product });
   }
 
   async updateProduct(req: Request, res: Response) {
@@ -37,12 +38,12 @@ export class ProductController {
       price,
       stock,
     });
-    res.json({ product });
+    res.status(statusCode.OK).json({ product });
   }
 
   async deleteProduct(req: Request, res: Response) {
     const { id } = req.params;
     const product = await this.productService.deleteProduct(id);
-    res.json({ product });
+    res.status(statusCode.OK).json({ product });
   }
 }
